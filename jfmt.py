@@ -7,8 +7,6 @@ if __name__ == "__main__":
 
 	#stdout redirected to file
 	for line in fileinput.input(filename, inplace=True):
-		leading_spc = len(line) - len(line.lstrip())
-	
 		#check for comments...
 		if re.search("/\*", line):
 			multiline = True
