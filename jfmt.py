@@ -3,7 +3,7 @@ import sys, re, fileinput
 if __name__ == "__main__":
 	filename = sys.argv[1]
 	indents = 0
-	comment = False #flag for indicating within a comment
+	multiline = False 
 
 	#stdout redirected to file
 	for line in fileinput.input(filename, inplace=True):
@@ -11,14 +11,14 @@ if __name__ == "__main__":
 	
 		#check for comments...
 		if re.search("/\*", line):
-			comment = True
+			multiline = True
 
 		if re.search("\*/", line):
-			comment = False
+			multiline = False
 			print indents * 4 * " " + line.strip()
 			continue
 
-		if comment:
+		if multiline or re.search("//\s*\S*\{", line):
 			print indents * 4 * " " + line.strip()
 			continue
 
